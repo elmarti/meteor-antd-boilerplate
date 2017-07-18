@@ -15,7 +15,6 @@ class AccountForm extends React.Component {
     }
 
     render() {
-        console.log(this)
         return (
             <Layout>
                 <Content>

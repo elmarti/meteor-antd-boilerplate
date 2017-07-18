@@ -6,9 +6,16 @@ class LoginForm extends React.Component {
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
-            if (!err) {
-                console.log('Received values of form: ', values);
-            }
+            if (err)
+                return notification.error(err);
+            Meteor.call("accounts/create", error => {
+                if (error)
+                    return notification.error(error);
+                Meteor.loginWithPassword(values.email, values.password, loginError => {
+                    if (loginError)
+                        notification.error(loginError);
+                });
+            });
         });
     }
     render() {
