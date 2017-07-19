@@ -13,4 +13,9 @@ Meteor.startup(() => {
         console.log('Admin user created, _id: %s', userId);
         Roles.addUsersToRoles(userId, 'admin', Roles.GLOBAL_GROUP);
     }
+
+    Accounts.onCreateUser((options, user)=>{
+       user.profile["createdDate"] = new Date();
+       return user;
+    });
 });

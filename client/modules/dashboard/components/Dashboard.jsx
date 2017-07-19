@@ -5,11 +5,14 @@ import { FlowRouter } from 'meteor/kadira:flow-router';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Row, Col, Card } from 'antd';
 class Dashboard extends React.Component{
+    goTo(path){
+        FlowRouter.go(path)
+    }
     render(){
         return (
             <Row gutter={16}>
                 {this.props.isAdmin ? <Col span={6} >
-                    <Card title="Edit users" style={{cursor:'pointer'}} >
+                    <Card title="Edit users" style={{cursor:'pointer'}} onClick={this.goTo.bind(this, "/users")}>
                         <p>
                             Create, edit and view information about all users
                         </p>
@@ -17,9 +20,7 @@ class Dashboard extends React.Component{
                             Admin only
                         </p>
                     </Card>
-
                 </Col> : ""}
-
             </Row>
         )
     }
