@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Layout, Form, Icon, Input, Button, Checkbox, notification } from 'antd';
 const FormItem = Form.Item;
 const { Content } = Layout;
 class LoginForm extends React.Component {
@@ -8,13 +8,9 @@ class LoginForm extends React.Component {
         this.props.form.validateFields((err, values) => {
             if (err)
                 return notification.error(err);
-            Meteor.call("accounts/create", error => {
-                if (error)
-                    return notification.error(error);
-                Meteor.loginWithPassword(values.email, values.password, loginError => {
-                    if (loginError)
-                        notification.error(loginError);
-                });
+            Meteor.loginWithPassword(values.email, values.password, loginError => {
+                if (loginError)
+                    notification.error(loginError);
             });
         });
     }
