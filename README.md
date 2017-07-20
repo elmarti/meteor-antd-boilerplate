@@ -2,7 +2,7 @@
 
 [Example site](https://antdmeteor.herokuapp.com)
 Admin account: admin@antdexample.com password:password
-# Meteor AntD boilerplate
+# Meteor [AntD](https://ant.design/) boilerplate
 
-I keep using this setup for side projects so I've decided to build a boilerplate project to work from.
-At time of writing it is a work in progress.
+A handy boilerplate for Meteor projects with nice, easy to use UI and nifty components.
+I am developing this on an ongoing basis, with a number of personal project being forks.
