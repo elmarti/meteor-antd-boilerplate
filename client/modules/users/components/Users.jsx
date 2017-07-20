@@ -22,7 +22,6 @@ export default class Users extends React.Component{
             title: 'Actions',
             key: 'actions',
             render: (text, record) => {
-                console.log('table', text, record);
                 return (
                     <span>
                       <a href="#">Action 一 {record.name}</a>
