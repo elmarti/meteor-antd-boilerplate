@@ -4,10 +4,11 @@ import { Roles } from 'meteor/alanning:roles';
 import Collections from '../lib/collections';
 const tablePublish = (name, collection, query, projection, role) => {
 
-    Meteor.publish(name, function (start) {
+    Meteor.publish(name, function (start, search) {
         if (!role || Roles.userIsInRole(this.userId, role, Roles.GLOBAL_GROUP)) {
             projection.skip = start * 10;
             projection.limit = projection.skip + 10;
+            query["emails.0.address"] = {$regex:search, $options:"i"};
             return Collections[collection].find(query, projection);
         }
         else return this.ready();

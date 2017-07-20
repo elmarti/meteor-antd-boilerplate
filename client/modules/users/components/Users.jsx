@@ -6,6 +6,9 @@ import { Icon } from 'antd';
 export default class Users extends React.Component{
     constructor() {
         super();
+        this.state = {
+            search:""
+        };
         this.columns = [{
             title: 'Email',
             dataIndex: 'email',
@@ -34,11 +37,20 @@ export default class Users extends React.Component{
                     </span>
                 );
             }
-        }]
-    }
+        }];
 
+    }
+    onSearchChange(search){
+        console.log(search);
+        this.setState({
+            search
+        });
+    }
     mapTableData() {
-        const users = Meteor.users.find().fetch();
+        const search =this.state ? this.state.search : "";
+        const users = Meteor.users.find({
+            "emails.0.address":{$regex:search, $options:"i"}
+        }).fetch();
         return users.map(user => {
             return {
                 key: user._id,
@@ -49,6 +61,6 @@ export default class Users extends React.Component{
     }
 
     render() {
-        return (<Table subscription="users/list" columns={this.columns} mapTableData={this.mapTableData}/>);
+        return (<Table onSearchChange={this.onSearchChange.bind(this)} searchValue={this.state.search} subscription="users/list" columns={this.columns} mapTableData={this.mapTableData.bind(this)}/>);
     }
 }

@@ -12,7 +12,7 @@
 //             password: 'password'
 //         });
 //         console.log('Admin user created, _id: %s', userId);
-//         Roles.addUsersToRoles(userId, 'admin', Roles.GLOBAL_GROUP);
+//         Roles.addUsersToRoles(userId, ['admin','user'], Roles.GLOBAL_GROUP);
 //     }
 //
 //     Accounts.onCreateUser((options, user)=>{

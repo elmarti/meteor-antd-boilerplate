@@ -1,7 +1,8 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
-import { Layout, Breadcrumb } from 'antd';
+import { FlowRouter } from 'meteor/kadira:flow-router';
+import { Layout, Icon } from 'antd';
 const {Content} = Layout;
 import {Header, Footer} from '../';
 
@@ -11,11 +12,6 @@ class Wrapper extends React.Component{
         return (  <Layout className="layout">
             <Header/>
             <Content style={{ padding: '0 50px' }}>
-                <Breadcrumb style={{ margin: '12px 0' }}>
-                    <Breadcrumb.Item>Home</Breadcrumb.Item>
-                    <Breadcrumb.Item>List</Breadcrumb.Item>
-                    <Breadcrumb.Item>App</Breadcrumb.Item>
-                </Breadcrumb>
                 <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>
                     {this.props.content}
                 </div>
