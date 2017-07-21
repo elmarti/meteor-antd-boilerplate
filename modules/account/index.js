@@ -1,4 +1,4 @@
-import AccountForm from './components/AccountForm';
+import AccountForm from './containers/AccountForm';
 import Login from './components/Login';
 import Register from './components/Register';
 import Preferences from './components/Preferences';
