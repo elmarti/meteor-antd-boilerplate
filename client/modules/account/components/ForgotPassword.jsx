@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Icon, Input, Button, Checkbox, notification } from 'antd';
+import { Form, Icon, Input, Button, notification } from 'antd';
 const FormItem = Form.Item;
 class ForgotPassword extends React.Component {
     handleSubmit = (e) => {
@@ -7,9 +7,10 @@ class ForgotPassword extends React.Component {
         this.props.form.validateFields((err, values) => {
             if (err)
                 return notification.error(err);
-            Meteor.loginWithPassword(values.email, values.password, loginError => {
-                if (loginError)
-                    notification.error(loginError);
+            Meteor.call( 'accounts/sendResetEmail', values.email, passwordError =>{
+                if (passwordError)
+                    return notification.error(passwordError);
+                notification.success('If you have an account, an email will be sent to reset your password.');
             });
         });
     }

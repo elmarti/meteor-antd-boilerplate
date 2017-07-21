@@ -19,5 +19,22 @@ export default {
         });
         Roles.addUsersToRoles(_id, 'user', Roles.GLOBAL_GROUP);
         return _id;
+    },
+    /**
+     * Send a password reset email
+     * Ensure that SMTP is configured, else emails will be printed to the console
+     * How do I configure SMTP? https://gist.github.com/LeCoupa/9879221
+     * @method sendResetEmao
+     * @param email
+     * @returns undefined
+     */
+    sendResetEmail(email){
+        check(email, String);
+        const user = Meteor.users.findOne({
+            "emails.0.address":email
+        });
+        //don't throw error if user not found to avoid username farming
+        if(user)
+            Accounts.sendResetPasswordEmail(user._id, email);
     }
 }
