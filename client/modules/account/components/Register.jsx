@@ -45,7 +45,6 @@ class Register extends React.Component {
                     })(
                         <Checkbox>Remember me</Checkbox>
                     )}
-                    <a style={{float: "right"}} href="">Forgot password</a>
                     <Button type="primary" htmlType="submit" style={{width: "100%"}}>
                         Register
                     </Button>
