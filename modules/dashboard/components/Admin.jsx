@@ -4,7 +4,7 @@ import { Roles } from 'meteor/alanning:roles';
 import { FlowRouter } from 'meteor/kadira:flow-router';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Row, Col, Card } from 'antd';
-export default class AdminDashboard extends React.Component{
+export default class extends React.Component{
     goTo(path){
         FlowRouter.go(path)
     }

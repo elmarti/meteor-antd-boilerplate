@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import { shallow } from 'enzyme';
 import { chai } from 'meteor/practicalmeteor:chai';
-import AccountForm from './AccountForm';
+import { Component as AccountForm } from './AccountForm';
 
 describe('AccountForm', () => {
     // In Todos app, component code can run on client and server, so force client only

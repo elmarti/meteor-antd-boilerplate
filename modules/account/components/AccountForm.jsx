@@ -6,7 +6,7 @@ import { Layout, Card, Row } from 'antd';
 const { Content } = Layout;
 
 
-export default class AccountForm extends React.Component {
+export default class Component extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -30,4 +30,15 @@ export default class AccountForm extends React.Component {
             </Layout>
         );
     }
+}
+
+const Container =  createContainer(() => {
+    const loggedIn =  Meteor.user();
+    if (loggedIn)
+        FlowRouter.go("/");
+    return {};
+}, Component);
+
+export {
+    Container, Component
 }

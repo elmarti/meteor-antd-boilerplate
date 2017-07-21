@@ -21,9 +21,10 @@ class Wrapper extends React.Component{
     }
 }
 export default createContainer(()=>{
+    console.log("buildingWrapper")
     if(!(Meteor.loggingIn() || Meteor.user()))
         FlowRouter.go("/login");
     return {
 
-    }
+    };
 }, Wrapper);
