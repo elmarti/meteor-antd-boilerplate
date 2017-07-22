@@ -4,7 +4,7 @@ import { Roles } from 'meteor/alanning:roles';
 import { FlowRouter } from 'meteor/kadira:flow-router';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Row, Col, Card } from 'antd';
-export default class AdminDashboard extends React.Component{
+export default class extends React.Component{
     goTo(path){
         FlowRouter.go(path)
     }
@@ -12,9 +12,12 @@ export default class AdminDashboard extends React.Component{
         return (
             <Row gutter={16}>
                 <Col span={6} >
-                    <Card title="TODO" style={{cursor:'pointer'}} >
+                    <Card title="Edit users" style={{cursor:'pointer'}} onClick={this.goTo.bind(this, "/users")}>
                         <p>
-                            Not done yet, therefore TODO
+                            Create, edit and view information about all users
+                        </p>
+                        <p className="danger">
+                            Admin only
                         </p>
                     </Card>
                 </Col>

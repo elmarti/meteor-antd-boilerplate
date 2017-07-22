@@ -6,7 +6,7 @@ import { Layout, Card, Row } from 'antd';
 const { Content } = Layout;
 
 
-class AccountForm extends React.Component {
+export default class Component extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -22,7 +22,7 @@ class AccountForm extends React.Component {
                         <Row style={{textAlign:'center', paddingBottom:'20px'}}>
                             <img src="http://via.placeholder.com/100x100"/>
                         </Row>
-                        <Row>
+                        <Row className="main_content">
                             {this.props.content}
                         </Row>
                     </Card>
@@ -31,9 +31,14 @@ class AccountForm extends React.Component {
         );
     }
 }
-export default createContainer(() => {
+
+const Container =  createContainer(() => {
     const loggedIn =  Meteor.user();
     if (loggedIn)
         FlowRouter.go("/");
     return {};
-}, AccountForm);
+}, Component);
+
+export {
+    Container, Component
+}
