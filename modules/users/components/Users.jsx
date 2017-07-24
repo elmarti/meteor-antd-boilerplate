@@ -2,7 +2,7 @@ import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Table } from '../../data';
-import { Icon } from 'antd';
+import { Icon, notification } from 'antd';
 export default class Users extends React.Component{
     constructor() {
         super();
@@ -24,10 +24,11 @@ export default class Users extends React.Component{
         },{
             title: 'Actions',
             key: 'actions',
-            render: (text, record) => {
+            render: (data) => {
+                console.log(data)
                 return (
                     <span>
-                      <a href="#">Action 一 {record.name}</a>
+                        {data.verified ? <a onClick={this.toggleVerification.bind(this, data.key)}>Unverify</a> : <a onClick={this.toggleVerification.bind(this, data.key)}>Verify</a>}
                       <span className="ant-divider"/>
                       <a href="#">Delete</a>
                       <span className="ant-divider"/>
@@ -39,6 +40,12 @@ export default class Users extends React.Component{
             }
         }];
 
+    }
+    toggleVerification(key){
+        Meteor.call("accounts/toggleVerification", key, err => {
+           if(err) return notification.error(err);
+           else notification.success({message: "Account verified"});
+        });
     }
     onSearchChange(search){
         console.log(search);
@@ -55,7 +62,8 @@ export default class Users extends React.Component{
             return {
                 key: user._id,
                 email: user.emails[0].address,
-                roles: Roles.getRolesForUser(user._id).join(" ,")
+                roles: Roles.getRolesForUser(user._id).join(" ,"),
+                verified: user.emails[0].verified
             }
         });
     }

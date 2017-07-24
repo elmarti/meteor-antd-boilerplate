@@ -1,6 +1,6 @@
-import {Accounts} from 'meteor/accounts-base';
-import {Check} from 'meteor/check';
-import {Roles} from 'meteor/alanning:roles'
+import { Accounts } from 'meteor/accounts-base';
+import { Check } from 'meteor/check';
+import { Roles } from 'meteor/alanning:roles'
 export default {
     /**
      * Create a new user account
@@ -36,5 +36,31 @@ export default {
         //don't throw error if user not found to avoid username farming
         if(user)
             Accounts.sendResetPasswordEmail(user._id, email);
+    },
+    /**
+     * As an admin, toggle a user's account verification
+     * @method toggleVerification
+     * @param _id
+     * @returns undefined
+     */
+    toggleVerification(_id){
+        check(_id,String);
+        if(Roles.userIsInRole(Meteor.userId(), 'admin', Roles.GLOBAL_GROUP)){
+            const user = Meteor.users.findOne({
+                _id
+            });
+            if(user){
+                Meteor.users.update({
+                    _id
+                }, {
+                    $set:{
+                        "emails.0.verified":! user.emails[0].verified
+                    }
+                });
+            }
+        } else {
+            throw new Meteor.Error(401, "You are not an admin");
+        }
+
     }
 }
