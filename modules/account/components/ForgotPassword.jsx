@@ -29,6 +29,7 @@ class ForgotPassword extends React.Component {
                     <Button type="primary" htmlType="submit" style={{width:"100%"}}>
                         Send reset email
                     </Button>
+                    <a href="/login" >Go back</a>
                 </FormItem>
             </Form>
         );

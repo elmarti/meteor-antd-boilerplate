@@ -2,7 +2,7 @@ import React from 'react';
 
 import {FlowRouter} from 'meteor/kadira:flow-router';
 import { mount } from 'react-mounter';
-import { AccountForm, Login, Register, Preferences, ForgotPassword } from './';
+import { AccountForm, Login, Register, Preferences, ForgotPassword, ResetPassword } from './';
 import { Wrapper } from '../layout';
 FlowRouter.route("/login", {
     name: 'login',
@@ -30,10 +30,18 @@ FlowRouter.route("/preferences", {
     }
 });
 FlowRouter.route("/forgotpassword", {
-   name: 'preferences',
+    name: 'forgotpassword',
     action(){
-       mount(Wrapper,{
-           content:<ForgotPassword/>
-       })
+        mount(AccountForm,{
+            content:<ForgotPassword/>
+        })
+    }
+});
+FlowRouter.route("/reset-password/:token", {
+    name: 'reset-password',
+    action(){
+        mount(AccountForm,{
+            content:<ResetPassword/>
+        })
     }
 });
