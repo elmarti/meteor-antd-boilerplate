@@ -2,13 +2,15 @@ import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Table } from '../../data';
-import { Icon, notification } from 'antd';
+import { Icon, Spin, Popconfirm, notification } from 'antd';
 export default class Users extends React.Component{
     constructor() {
         super();
         this.state = {
-            search:""
+            search:"",
+            submitClicked:""
         };
+
         this.columns = [{
             title: 'Email',
             dataIndex: 'email',
@@ -25,24 +27,41 @@ export default class Users extends React.Component{
             title: 'Actions',
             key: 'actions',
             render: (data) => {
-                console.log(data)
+                console.log(this)
                 return (
-                    <span>
-                        {data.verified ? <a onClick={this.toggleVerification.bind(this, data.key)}>Unverify</a> : <a onClick={this.toggleVerification.bind(this, data.key)}>Verify</a>}
+                    <Spin spinning={data.key === this.state.submitClicked}>
+                        {data.verified ?
+                            <Popconfirm onConfirm={this.toggleVerification.bind(this, data.key)} title="Are you sure you want to unverify this user?" okText="Yes" cancelText="No"><a >Unverify</a></Popconfirm> :
+                            <Popconfirm onConfirm={this.toggleVerification.bind(this, data.key)} title="Are you sure you want to verify this user?" okText="Yes" cancelText="No"><a >Verify</a></Popconfirm>
+                        }
                       <span className="ant-divider"/>
-                      <a href="#">Delete</a>
-                      <span className="ant-divider"/>
-                      <a href="#" className="ant-dropdown-link">
-                        More actions <Icon type="down"/>
-                      </a>
-                    </span>
+                        <Popconfirm onConfirm={this.deleteUser.bind(this, data.key)} title="Are you sure you want to delete this user?" okText="Yes" cancelText="No"> <a href="#">Delete</a></Popconfirm>
+                    </Spin>
                 );
             }
         }];
 
     }
+    deleteUser(key){
+        this.setState({
+            submitClicked: key
+        });
+        Meteor.call("accounts/deleteUser", key, err => {
+            this.setState({
+                submitClicked: ""
+            });
+            if(err) return notification.error(err);
+            else notification.success({message: "Account deleted"});
+        });
+    }
     toggleVerification(key){
+        this.setState({
+            submitClicked: key
+        });
         Meteor.call("accounts/toggleVerification", key, err => {
+            this.setState({
+                submitClicked: ""
+            });
            if(err) return notification.error(err);
            else notification.success({message: "Account verified"});
         });

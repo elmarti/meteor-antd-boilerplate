@@ -3,12 +3,28 @@ import { Layout, Form, Icon, Input, Button, Checkbox, notification } from 'antd'
 const FormItem = Form.Item;
 const { Content } = Layout;
 class LoginForm extends React.Component {
+    constructor(){
+        super();
+        this.state = {
+          submitLoading:false
+        };
+    }
     handleSubmit = (e) => {
+        this.setState({
+            submitLoading:true
+        });
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
-            if (err)
+            if (err) {
+                this.setState({
+                    submitLoading:false
+                });
                 return notification.error(err);
+            }
             Meteor.loginWithPassword(values.email, values.password, loginError => {
+                this.setState({
+                    submitLoading:false
+                });
                 if (loginError)
                     notification.error(loginError);
             });
@@ -40,7 +56,7 @@ class LoginForm extends React.Component {
                         <Checkbox>Remember me</Checkbox>
                     )}
                     <a style={{float:"right"}} href="/forgotpassword">Forgot password</a>
-                    <Button type="primary" htmlType="submit" style={{width:"100%"}}>
+                    <Button loading={this.state.submitLoading} type="primary" htmlType="submit" style={{width:"100%"}}>
                         Log in
                     </Button>
                     Or <a href="/register" >register now!</a>

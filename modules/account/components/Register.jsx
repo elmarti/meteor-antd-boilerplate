@@ -3,14 +3,31 @@ import {Meteor} from 'meteor/meteor';
 import {Form, Icon, Input, Button, Checkbox, notification} from 'antd';
 const FormItem = Form.Item;
 class Register extends React.Component {
+    constructor(){
+        super();
+        this.state = {
+            submitLoading:false
+        };
+    }
     handleSubmit = (e) => {
         e.preventDefault();
+        this.setState({
+            submitLoading:true
+        });
         this.props.form.validateFields((err, values) => {
-            if (err)
+            if (err){
+                this.setState({
+                    submitLoading:false
+                });
                 return notification.error(err);
+            }
             Meteor.call("accounts/create", values, error => {
-                if (error)
+                if (error){
+                    this.setState({
+                        submitLoading:false
+                    });
                     return notification.error(error);
+                }
                 Meteor.loginWithPassword(values.email, values.password, loginError => {
                    if (loginError)
                        notification.error(loginError);
@@ -45,7 +62,7 @@ class Register extends React.Component {
                     })(
                         <Checkbox>Remember me</Checkbox>
                     )}
-                    <Button type="primary" htmlType="submit" style={{width: "100%"}}>
+                    <Button loading={this.state.submitLoading} type="primary" htmlType="submit" style={{width: "100%"}}>
                         Register
                     </Button>
                     Or <a href="/login">login now!</a>

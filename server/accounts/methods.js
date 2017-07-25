@@ -62,5 +62,11 @@ export default {
             throw new Meteor.Error(401, "You are not an admin");
         }
 
+    },
+    deleteUser(_id){
+        check(_id, String);
+        if(Roles.userIsInRole(Meteor.userId(), 'admin', Roles.GLOBAL_GROUP)) {
+            Meteor.users.remove({_id});
+        }
     }
 }
