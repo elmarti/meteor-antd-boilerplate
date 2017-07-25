@@ -19,19 +19,6 @@ Meteor.startup(() => {
         });
         console.log('Admin user created, _id: %s', userId);
         Roles.addUsersToRoles(userId, ['admin','user'], Roles.GLOBAL_GROUP);
-
-
-        let i = 0;
-        while(i<100){
-            console.log('adding user');
-            const userId = Accounts.createUser({
-                email: Random.id() + '@' +  Random.id(),
-                password: 'password'
-            });
-            console.log('Random user created, _id: %s', userId, i );
-            Roles.addUsersToRoles(userId, 'user', Roles.GLOBAL_GROUP);
-            i++
-        }
     }
     Accounts.urls.resetPassword = function(token) {
         return Meteor.absoluteUrl("reset-password/" + token);

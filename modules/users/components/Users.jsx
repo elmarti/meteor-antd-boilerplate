@@ -17,8 +17,8 @@ export default class Users extends React.Component{
             key: 'email'
         }, {
             title: 'Created',
-            dataIndex: 'created',
-            key: 'created'
+            dataIndex: 'createdAt',
+            key: 'createdAt'
         }, {
             title: 'Roles',
             dataIndex: 'roles',
@@ -27,7 +27,6 @@ export default class Users extends React.Component{
             title: 'Actions',
             key: 'actions',
             render: (data) => {
-                console.log(this)
                 return (
                     <Spin spinning={data.key === this.state.submitClicked}>
                         {data.verified ?
@@ -67,7 +66,6 @@ export default class Users extends React.Component{
         });
     }
     onSearchChange(search){
-        console.log(search);
         this.setState({
             search
         });
@@ -82,7 +80,8 @@ export default class Users extends React.Component{
                 key: user._id,
                 email: user.emails[0].address,
                 roles: Roles.getRolesForUser(user._id).join(" ,"),
-                verified: user.emails[0].verified
+                verified: user.emails[0].verified,
+                createdAt: user.profile ? user.profile.createdAt.toDateString() : ""
             }
         });
     }

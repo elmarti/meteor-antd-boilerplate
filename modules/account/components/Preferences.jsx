@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Button, Row, Col, Icon } from 'antd';
+import { Form, Input, Button, Row, Col, Icon, notification } from 'antd';
 import { Accounts } from 'meteor/accounts-base';
 const FormItem = Form.Item;
 
@@ -10,8 +10,10 @@ class NormalLoginForm extends React.Component {
             if (!err) {
                 Accounts.changePassword(values.oldPassword, values.newPassword, error => {
                    if(error)
-                       return console.log(error);
-                   console.log("success");
+                       return notification.error(error);
+                   notification.success({
+                       message:"Password updated"
+                   });
                 });
             }
         });

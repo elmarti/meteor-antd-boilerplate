@@ -6,6 +6,7 @@ tablePublish('users/list', 'User', {}, {
         "profile.createdAt": 1,
         _id: 1,
         emails: 1,
-        roles: 1
+        roles: 1,
+        profile: 1
     }
 }, 'admin');
