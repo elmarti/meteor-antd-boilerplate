@@ -20,7 +20,7 @@ export default class Component extends React.Component {
                 <Content>
                     <Card className="form-login-register">
                         <Row style={{textAlign:'center', paddingBottom:'20px'}}>
-                            <img src="http://via.placeholder.com/100x100"/>
+                            <img src="https://via.placeholder.com/100x100"/>
                         </Row>
                         <Row className="main_content">
                             {this.props.content}
