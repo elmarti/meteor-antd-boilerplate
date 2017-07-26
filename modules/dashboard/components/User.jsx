@@ -12,9 +12,16 @@ export default class  extends React.Component{
         return (
             <Row gutter={16}>
                 <Col span={6} >
-                    <Card title="TODO" style={{cursor:'pointer'}} >
+                    <Card title="TODO" style={{cursor:'pointer', minHeight:"150px"}} >
                         <p>
                             Not done yet, therefore TODO
+                        </p>
+                    </Card>
+                </Col>
+                <Col span={6} >
+                    <Card title="View profile" style={{cursor:'pointer', minHeight:"150px"}} onClick={this.goTo.bind(this, "/profile")}>
+                        <p>
+                            View your profile
                         </p>
                     </Card>
                 </Col>
