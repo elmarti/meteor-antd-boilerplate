@@ -4,6 +4,7 @@ import { FlowRouter } from 'meteor/kadira:flow-router';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Connection } from '../../../lib/collections';
 import { Spin, Row, Col, Card, Avatar, Button } from 'antd';
+import { Comments } from '../';
 class Profile extends React.Component {
     constructor() {
         super();
@@ -44,7 +45,7 @@ class Profile extends React.Component {
                 </Col>
                 <Col span={8}>
                     <Card loading={!this.props.profileReady} title="Comments" style={{minHeight: "150px"}}>
-
+                        <Comments/>
                     </Card>
                 </Col>
             </Row>);
@@ -56,7 +57,7 @@ export default createContainer(() => {
     let profileReady = false;
     const ownProfile = routeName == "own_profile";
     if (ownProfile)
-        profileReady = Meteor.subscribe('ownProfile').ready();
+        profileReady = Meteor.subscribe('profile').ready();
     else
         profileReady = Meteor.subscribe('profile',userId);
     const user = ownProfile ? Meteor.user() : Meteor.users.findOne({

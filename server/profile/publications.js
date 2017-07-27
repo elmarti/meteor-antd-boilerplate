@@ -1,29 +1,15 @@
 import { Meteor } from 'meteor/meteor';
 import { Check } from 'meteor/check';
-import { Connection } from '../../lib/collections';
+import { Connection, Comment, User } from '../../lib/collections';
 
-Meteor.publishComposite("ownProfile", function () {
-    return {
-        find(){
-            return Meteor.users.find({
-                _id: this.userId
-            });
-        },
-        children: [{
-            find(user){
-                return Connection.find({
-                    "users.0._id":user._id
-                });
-            }
-        }]
-    }
 
-});
 Meteor.publishComposite("profile", function (_id) {
+    if(!_id)
+        _id = this.userId;
     check(_id, String);
     return {
         find(){
-            return Meteor.users.find({
+            return User.find({
                 _id
             }, {
                 fields: {
@@ -37,7 +23,27 @@ Meteor.publishComposite("profile", function (_id) {
                 return Connection.find({
                     "users.0._id":user._id
                 });
-            }
+            },
+            children: [{
+                find(connection, user){
+                    return Comment.find({
+                        receiver:_id
+                    });
+                },
+                children:[{
+                    find(comment, connection, user){
+                        return User.find({
+                           _id:comment.sender
+                        });
+                    }
+                }]
+            },{
+                // find(connection, user){
+                //     return User.find({
+                //         connection
+                //     })
+                // }
+            }]
         }]
     };
 
