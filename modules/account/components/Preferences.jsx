@@ -1,21 +1,17 @@
 import React from 'react';
 import { Form, Input, Button, Row, Col, Icon, notification } from 'antd';
-import { Accounts } from 'meteor/accounts-base';
 const FormItem = Form.Item;
 
 class NormalLoginForm extends React.Component {
     handleSubmit (e) {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
-            if (!err) {
-                Accounts.changePassword(values.oldPassword, values.newPassword, error => {
-                   if(error)
-                       return notification.error(error);
-                   notification.success({
-                       message:"Password updated"
-                   });
-                });
-            }
+            if (err)
+                notification.error(err);
+            else
+            notification.success({
+                message:"Password updated (Password cannot be updated in test)"
+            });
         });
     }
     render() {

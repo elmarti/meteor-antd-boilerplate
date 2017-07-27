@@ -1,8 +1,8 @@
-// import { Meteor } from 'meteor/meteor';
-// import { Accounts } from 'meteor/accounts-base';
-// import { Roles } from 'meteor/alanning:roles';
-// import { Random } from 'meteor/random';
-//
+import { Meteor } from 'meteor/meteor';
+import { Accounts } from 'meteor/accounts-base';
+import { Roles } from 'meteor/alanning:roles';
+import { Random } from 'meteor/random';
+
 Meteor.startup(() => {
     Accounts.onCreateUser((options, user)=>{
         user["profile"] = {
@@ -23,4 +23,5 @@ Meteor.startup(() => {
     Accounts.urls.resetPassword = function(token) {
         return Meteor.absoluteUrl("reset-password/" + token);
     };
+    Accounts
 });
