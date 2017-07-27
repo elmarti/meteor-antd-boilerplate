@@ -65,6 +65,8 @@ export default {
     },
     deleteUser(_id){
         check(_id, String);
+        if(Roles.userIsInRole(_id, 'main-live-admin', Roles.GLOBAL_GROUP))
+            throw new Meteor.Error(403, "Cannot delete main-live-admin on example server ;)");
         if(Roles.userIsInRole(Meteor.userId(), 'admin', Roles.GLOBAL_GROUP)) {
             Meteor.users.remove({_id});
         }
