@@ -6,12 +6,13 @@ import { CommentForm } from '../';
 export default class Comments extends React.Component {
 
     render(){
+        console.log(this.props);
         return (
                 <Row>
-                    {this.props.friends.map(friend  =>(<Row>
+                    {this.props.comments.map(comment  =>(<Row>
                         <Avatar/>
                     </Row>))}
-                    <CommentForm/>
+                    <CommentForm profileId={this.props.profileId}/>
                 </Row>
         );
     }

@@ -38,11 +38,14 @@ Meteor.publishComposite("profile", function (_id) {
                     }
                 }]
             },{
-                // find(connection, user){
-                //     return User.find({
-                //         connection
-                //     })
-                // }
+                find(connection, user){
+                    //fix this shit
+                    let _id = [];
+                    connection.users.forEach( thisUser =>  _id.push(thisUser._id) );
+                    return User.find({
+                        _id
+                    });
+                }
             }]
         }]
     };

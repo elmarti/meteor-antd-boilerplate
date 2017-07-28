@@ -2,8 +2,9 @@ import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { FlowRouter } from 'meteor/kadira:flow-router';
 import { createContainer } from 'meteor/react-meteor-data';
-import { Connection } from '../../../lib/collections';
+import { Connection, Comment } from '../../../lib/collections';
 import { Spin, Row, Col, Card, Avatar, Button } from 'antd';
+import { User } from '../../../lib/collections';
 import { Comments } from '../';
 class Profile extends React.Component {
     constructor() {
@@ -45,37 +46,39 @@ class Profile extends React.Component {
                 </Col>
                 <Col span={8}>
                     <Card loading={!this.props.profileReady} title="Comments" style={{minHeight: "150px"}}>
-                        <Comments/>
+                        <Comments comments={this.props.comments} profileId={this.props.profileId}/>
                     </Card>
                 </Col>
             </Row>);
     }
 }
 export default createContainer(() => {
-    const routeName = FlowRouter.current().route.name;
-    const userId = FlowRouter.getParam("id");
-    let profileReady = false;
-    const ownProfile = routeName == "own_profile";
-    if (ownProfile)
-        profileReady = Meteor.subscribe('profile').ready();
-    else
-        profileReady = Meteor.subscribe('profile',userId);
-    const user = ownProfile ? Meteor.user() : Meteor.users.findOne({
-            _id: userId
+    let ownProfile = false;
+    let profileId = FlowRouter.getParam("id");
+    const profileReady = Meteor.subscribe('profile',profileId).ready();
+    if(!profileId){
+        ownProfile = true;
+        profileId = Meteor.userId();
+    }
+    const user = User.findOne({
+            _id: profileId
         });
-
     const connection = Connection.findOne({
         $and: [{
             "users.0._id": Meteor.userId()
         }, {
-            "users.0._id": userId
+            "users.0._id": profileId
         }]
     });
+    const comments = Comment.find({
+        receiver:profileId
+    }).fetch();
 
     return {
         profileReady,
         user,
         connection,
-        ownProfile
+        profileId,
+        comments : comments ? comments : []
     };
 }, Profile);

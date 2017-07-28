@@ -25,7 +25,7 @@ class CommentForm extends React.Component {
                 this.setState({
                     loading:true
                 });
-                Meteor.call("profile/addComment", this.props.profileId, this.state.value, err => {
+                Meteor.call("profile/addComment", this.props.profileId, values.comment, err => {
                     this.setState({
                         loading:false
                     });
