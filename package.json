@@ -1,23 +1,21 @@
 {
-  "name": "hello",
-  "private": true,
+  "name": "meteor-antd-boilerplate",
   "scripts": {
     "start": "meteor run"
   },
   "dependencies": {
-    "antd": "^2.12.1",
-    "babel-runtime": "^6.20.0",
-    "indexof": "0.0.1",
-    "meteor-node-stubs": "~0.2.4",
-    "react": "^15.6.1",
+    "@babel/runtime": "7.0.0-beta.55",
+    "antd": "3.8.1",
+    "bcrypt": "^3.0.0",
+    "meteor-node-stubs": "0.4.1",
+    "react": "16.4.2",
     "react-addons-pure-render-mixin": "^15.6.0",
-    "react-dom": "^15.6.1",
+    "react-dom": "^16.4.2 ",
     "react-mounter": "^1.2.0"
   },
   "devDependencies": {
-    "enzyme": "^2.9.1",
-    "react": "^15.6.1",
+    "enzyme": "3.4.1",
     "react-addons-test-utils": "^15.6.0",
-    "react-test-renderer": "^15.6.1"
+    "react-test-renderer": "16.4.2"
   }
 }
