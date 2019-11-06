@@ -1,5 +1,4 @@
-[Example site](https://antdmeteor.herokuapp.com) NOTE - EMAIL_URL is not set up, so you cannot reset your password via email
-
+[Example site](https://antdmeteor.herokuapp.com) 
 
 Admin account: admin@antdexample.com password:password
 
